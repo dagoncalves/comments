@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Comment = ( { comment } ) => {
-  return <div>{comment.comment}</div>;
+  let comentario = '';
+  if ( comment && comment.comment ) {
+    comentario = comment.comment;
+  }
+  return <div>{comentario}</div>;
 };
 
 export default Comment;
