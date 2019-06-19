@@ -21,10 +21,11 @@ class NewComment extends Component {
   render() {
     return (
       <div>
-        <textarea onChange={this.handleChange} name="comentario">{this.state.comentario}</textarea>
+        <textarea onChange={this.handleChange} name="comentario">
+          {this.state.comentario}
+        </textarea>
         <button onClick={this.sendComment}>Enviar</button>
       </div>
-
     );
   }
 }
