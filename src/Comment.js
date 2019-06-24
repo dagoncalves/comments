@@ -2,10 +2,24 @@ import React from 'react';
 
 const Comment = ( { comment } ) => {
   let comentario = '';
-  if ( comment && comment.comment ) {
-    comentario = comment.comment;
+  let email = '';
+
+  if ( comment ) {
+    if ( comment.comment ) {
+      comentario = comment.comment;
+    }
+    if ( comment.email ) {
+      email = comment.email;
+    }
   }
-  return <div>{comentario}</div>;
+
+  return (
+    <div>
+      Comentário: {comentario}
+      <br />
+      Enviado por: {email} <hr />
+    </div>
+  );
 };
 
 export default Comment;

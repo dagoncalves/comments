@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import Comments from './Comments';
 import NewComment from './NewComment';
+import Login from './Login';
+import User from './User';
 
 class App extends Component {
   state = {
     comments: [],
-    isLoading: false
+    isLoading: false,
+    isAuth: false,
+    isAuthError: false,
+    authError: '',
+    user: {}
   };
 
   sendComment = comment => {
@@ -18,12 +24,40 @@ class App extends Component {
 
     const comments = {};
 
-    comments['comments/' + id] = { comment };
+    comments['comments/' + id] = {
+      comment,
+      email: this.state.user.email,
+      userId: this.state.user.uid
+    };
     database.ref().update(comments);
   };
 
+  login = async (email, passwd) => {
+    const { auth } = this.props;
+    this.setState({
+      authError: '',
+      isAuthError: false
+    });
+
+    try {
+      await auth.signInWithEmailAndPassword(email, passwd);
+      console.log('logar', email, passwd);
+    } catch (err) {
+      console.log(err);
+      this.setState({
+        authError: err.code,
+        isAuthError: true
+      });
+    }
+  };
+
+  logout = () => {
+    const { auth } = this.props;
+    auth.signOut();
+  };
+
   componentDidMount() {
-    const { database } = this.props;
+    const { database, auth } = this.props;
 
     this.setState({ isLoading: true });
     this.comments = database.ref('comments');
@@ -34,14 +68,31 @@ class App extends Component {
         isLoading: false
       });
     });
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.setState({
+          isAuth: true,
+          user
+        });
+      } else {
+        this.setState({
+          isAuth: false,
+          user: {}
+        });
+      }
+    });
   }
 
   render() {
+    const { isAuth, isLoading } = this.state;
     return (
       <div>
-        <NewComment sendComment={this.sendComment} />
+        {isAuth && <User email={this.state.user.email} logout={this.logout} />}
+        {!isAuth && <Login login={this.login} />}
+        {isAuth && <NewComment sendComment={this.sendComment} />}
+        {isLoading && <p>Carregando...</p>}
         <Comments comments={this.state.comments} />
-        {this.state.isLoading && <p>Carregando...</p>}
       </div>
     );
   }
