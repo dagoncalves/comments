@@ -89,7 +89,13 @@ class App extends Component {
     return (
       <div>
         {isAuth && <User email={this.state.user.email} logout={this.logout} />}
-        {!isAuth && <Login login={this.login} />}
+        {!isAuth && (
+          <Login
+            login={this.login}
+            isAuthError={this.state.isAuthError}
+            authError={this.state.authError}
+          />
+        )}
         {isAuth && <NewComment sendComment={this.sendComment} />}
         {isLoading && <p>Carregando...</p>}
         <Comments comments={this.state.comments} />

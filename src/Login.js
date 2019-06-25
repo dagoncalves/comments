@@ -17,6 +17,12 @@ class Login extends Component {
   };
 
   render() {
+    const errorMessages = {
+      'auth/wrong-password': 'E-mail ou senha inválidos',
+      'auth/user-not-found': 'Usuário não encontrado',
+      'auth/invalid-email': 'E-mail inválido'
+    };
+
     return (
       <div>
         <h4>Login</h4>
@@ -33,6 +39,11 @@ class Login extends Component {
         <button type="button" onClick={this.login}>
           Entrar
         </button>
+        {this.props.isAuthError && (
+          <p>
+            <b>Erro:</b> {errorMessages[this.props.authError]}
+          </p>
+        )}
       </div>
     );
   }
