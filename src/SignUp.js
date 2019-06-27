@@ -20,7 +20,7 @@ class SignUp extends Component {
     const errorMessages = {
       'auth/email-already-in-use': 'E-mail já foi utilizado',
       'auth/weak-password': 'Senha muito fraca',
-      'auth/invalid-email': 'E-mail inválido'
+      'auth/invalid-email': 'E-mail inválido',
     };
 
     return (

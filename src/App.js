@@ -128,7 +128,7 @@ class App extends Component {
         )}
         {!isAuth && userScreen === 'signup' && (
           <SignUp
-            createAccount={this.login}
+            createAccount={this.createAccount}
             isSignUpError={this.state.isSignUpError}
             signUpError={this.state.signUpError}
             changeScreen={this.changeScreen}
