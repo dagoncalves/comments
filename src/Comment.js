@@ -14,10 +14,12 @@ const Comment = ( { comment } ) => {
   }
 
   return (
-    <div>
-      Comentário: {comentario}
-      <br />
-      Enviado por: {email} <hr />
+    <div className="card mt-2">
+      <div className="card-body">
+        {comentario}
+        <br />
+        <span className="text-muted">Enviado por: {email}</span>
+      </div>
     </div>
   );
 };

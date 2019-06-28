@@ -25,28 +25,42 @@ class Login extends Component {
 
     return (
       <div>
-        <h4>Login</h4>
-        <input
-          type="text"
-          onChange={this.handleChange('email')}
-          placeholder="E-mail"
-        />
-        <input
-          type="password"
-          onChange={this.handleChange('passwd')}
-          placeholder="Senha"
-        />
-        <button type="button" onClick={this.login}>
-          Entrar
-        </button>
+        <h4>Entre para comentar</h4>
+        <form className="form-inline">
+          <input
+            type="text"
+            onChange={this.handleChange('email')}
+            placeholder="E-mail"
+            className="form-control mr-1"
+          />
+          <input
+            type="password"
+            onChange={this.handleChange('passwd')}
+            placeholder="Senha"
+            className="form-control mr-1"
+          />
+          <button
+            type="button"
+            onClick={this.login}
+            className="btn btn-primary"
+          >
+            Entrar
+          </button>
+          <button
+            onClick={() => this.props.changeScreen('signup')}
+            className="btn"
+          >
+            Criar conta
+          </button>
+        </form>
         {this.props.isAuthError && (
-          <p>
-            <b>Erro:</b> {errorMessages[this.props.authError]}
-          </p>
+          <div className="card text-white bg-danger mt-3">
+            <div className="card-header">Erro ao entrar</div>
+            <div className="card-body">
+              <b>Erro:</b> {errorMessages[this.props.authError]}
+            </div>
+          </div>
         )}
-        <button onClick={() => this.props.changeScreen('signup')}>
-          Criar conta
-        </button>
       </div>
     );
   }

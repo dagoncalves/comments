@@ -4,6 +4,7 @@ import NewComment from './NewComment';
 import Login from './Login';
 import SignUp from './SignUp';
 import User from './User';
+import 'bootstrap-css-only';
 
 class App extends Component {
   state = {
@@ -116,7 +117,7 @@ class App extends Component {
   render() {
     const { isAuth, isLoading, userScreen } = this.state;
     return (
-      <div>
+      <div className="container mt-3">
         {isAuth && <User email={this.state.user.email} logout={this.logout} />}
         {!isAuth && userScreen === 'login' && (
           <Login
